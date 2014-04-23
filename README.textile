@@ -1,8 +1,8 @@
 h1. Spree + Mail Chimp
 
-MailChimp API integration for your Spree store, using the hominid gem.
+MailChimp API integration for your Spree store, using the mailchimp-api gem.
 
-Adds a checkbox to the user signup form to allow customer to opt-in to your Mailchimp mailing list. Mailchimp API calls happen via the hominid gem.
+Adds a checkbox to the user signup form to allow customer to opt-in to your Mailchimp mailing list. Mailchimp API calls happen via the mailchimp-api gem.
 
 Mailchimp subscription status is tracked with a boolean flag on the users table, we also fetch and store the unique MC record id when the subscription is created. This allows us to modify existing email addresses with minimal fuss.
 
@@ -18,7 +18,7 @@ h3. Installation
 
 Add to project's Gemfile:
 <pre><code>
-gem 'spree_mail_chimp'
+gem 'spree_mail_chimp', github: 'alepore/spree_mail_chimp', branch: '2-2-stable'
 </code> </pre>
 
 Run from project's root:
@@ -40,8 +40,8 @@ V.3.0.24	Embedded jquery.simplemodal.js in _newsletter_subscribe.html.erb
 
 h3. Requirements
 
-Spree >= 1.1.14
-hominid ~> 3.0.0 http://rubygems.org/gems/hominid
+Spree ~> 2.2.0
+mailchimp-api ~> 2.0.4
 
 
 h3. Credits
@@ -51,6 +51,10 @@ Migrated to Spree 0.30 by Bastian Schnurle @bzt
 Migrated to Spree 1.0 (and extensively refactored) by James Kong @jkongie
 Repaired missing jqurey.simplemodal, added fields for names, zip code by Jerrold Thompson @bluehandtalking
 Inspired originally by https://github.com/softa/mailee_spree
+Migrated to Spree 2-1 by Doug Bradbury
+Migrated to Mailchimp api gem by Doug Bradbury and Kelly Steensma
+Upgraded Simple Modal to 1.4.4 to support jquery 1.9
+Migrated to Spree 2.2 by Alessandro Lepore
 
 Includes SimpleModal http://www.ericmmartin.com/projects/simplemodal/
 

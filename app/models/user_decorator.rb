@@ -1,9 +1,7 @@
-Spree::User.class_eval do
+Spree.user_class.class_eval do
 
   before_create :mailchimp_add_to_mailing_list
   before_update :mailchimp_update_in_mailing_list, :if => :is_mail_list_subscriber_changed?
-
-  attr_accessible :is_mail_list_subscriber
 
   private
 
@@ -13,11 +11,10 @@ Spree::User.class_eval do
   def mailchimp_add_to_mailing_list
     if self.is_mail_list_subscriber?
       begin
-        hominid.list_subscribe(mailchimp_list_id, self.email, mailchimp_merge_vars, 'html', *mailchimp_subscription_opts)
+        subscriber = mailchimp.lists.subscribe(mailchimp_list_id, {'email' => self.email},  mailchimp_merge_vars, 'html', *mailchimp_subscription_opts)
         logger.debug "Fetching new mailchimp subscriber info"
-
-        assign_mailchimp_subscriber_id if self.mailchimp_subscriber_id.blank?
-      rescue Hominid::APIError => e
+        self.mailchimp_subscriber_id = subscriber['euid'] if self.mailchimp_subscriber_id.blank?
+      rescue Mailchimp::Error => e
         logger.warn "SpreeMailChimp: Failed to create contact in Mailchimp: #{e.message}"
       end
     end
@@ -30,9 +27,9 @@ Spree::User.class_eval do
     if !self.is_mail_list_subscriber? && self.mailchimp_subscriber_id.present?
       begin
         # TODO: Get rid of those magic values. Maybe add them as Spree::Config options?
-        hominid.list_unsubscribe(mailchimp_list_id, self.email, false, false, true)
+        mailchimp.lists.unsubscribe(mailchimp_list_id, {'email' => self.email})
         logger.debug "Removing mailchimp subscriber"
-      rescue Hominid::APIError => e
+      rescue Mailchimp::Error => e
         logger.warn "SpreeMailChimp: Failed to remove contact from Mailchimp: #{e.message}"
       end
     end
@@ -51,28 +48,11 @@ Spree::User.class_eval do
     end
   end
 
-  # Retrieves and stores the Mailchimp member id
+  # Creates an instance of the mailchimp::API
   #
-  # Returns the Mailchimp ID
-  def assign_mailchimp_subscriber_id
-    begin
-      response = hominid.list_member_info(mailchimp_list_id, [self.email]).with_indifferent_access
-
-      if response[:success] == 1
-        member = response[:data][0]
-
-        self.mailchimp_subscriber_id = member[:id]
-      end
-    rescue Hominid::APIError => e
-      logger.warn "SpreeMailChimp: Failed to retrieve and store Mailchimp ID: #{e.message}"
-    end
-  end
-
-  # Creates an instance of the Hominid::API
-  #
-  # Returns Hominid::API
-  def hominid
-    @hominid ||= Hominid::API.new(Spree::Config.get(:mailchimp_api_key))
+  # Returns mailchimp::API
+  def mailchimp
+    @mailchimp ||= Mailchimp::API.new(Spree::Config.get(:mailchimp_api_key), true)
   end
 
   # Gets the Mailchimp list ID that is stored in Spree::Config

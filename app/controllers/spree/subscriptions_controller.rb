@@ -1,43 +1,42 @@
 class Spree::SubscriptionsController < Spree::BaseController
 
-  def hominid
-    @hominid ||= Hominid::API.new(Spree::Config.get(:mailchimp_api_key))
+  def mailchimp
+    @mailchimp ||= Mailchimp::API.new(Spree::Config.get(:mailchimp_api_key))
   end
 
   def create
     @errors = []
 
     if params[:email].blank?
-      @errors << t('missing_email')
+      @errors << Spree.t('missing_email')
     elsif params[:email] !~ /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i
-      @errors << t('invalid_email_address')
+      @errors << Spree.t('invalid_email_address')
     else
       begin
-        @mc_member = hominid.list_member_info(Spree::Config.get(:mailchimp_list_id), [ params[:email] ])["success"] == 1
-      rescue Hominid::APIError => e
+        @mc_member = mailchimp.lists.member_info(Spree::Config.get(:mailchimp_list_id), [ {'email' => params[:email] } ])["success_count"] >= 1
+      rescue Mailchimp::Error => e
       end
 
       if @mc_member
-        @errors << t('that_address_is_already_subscribed')
+        @errors << Spree.t('that_address_is_already_subscribed')
       else
         begin
-          hominid.list_subscribe(
-            Spree::Config.get(:mailchimp_list_id), 
-            params[:email],{'FNAME' => params[:fname], 'LNAME' => params[:lname], 'MMERGE3' => params[:mmerge3]}, 
-            true, 
-            true, 
+         mailchimp.lists.subscribe(
+            Spree::Config.get(:mailchimp_list_id),
+            {'email' => params[:email]},
+            {'FNAME' => params[:fname], 'LNAME' => params[:lname], 'MMERGE3' => params[:mmerge3]},
+            true,
+            true,
             Spree::Config.get(:mailchimp_send_welcome)
           )
-        rescue Hominid::APIError => e
+        rescue Mailchimp::Error => e
           @errors << t('invalid_email_address')
         end
       end
     end
-    # if @errors.empty?
-    respond_to do |format|
-      format.html { redirect_to(users_url) }
-      format.xml  { head :ok }
-      format.js   {          }
+
+    respond_to do |wants|
+      wants.js
     end
   end
 end
