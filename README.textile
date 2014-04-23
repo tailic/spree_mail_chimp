@@ -18,7 +18,7 @@ h3. Installation
 
 Add to project's Gemfile:
 <pre><code>
-gem 'spree_mail_chimp'
+gem 'spree_mail_chimp', github: 'alepore/spree_mail_chimp', branch: '2-2-stable'
 </code> </pre>
 
 Run from project's root:
@@ -40,7 +40,7 @@ V.3.0.24	Embedded jquery.simplemodal.js in _newsletter_subscribe.html.erb
 
 h3. Requirements
 
-Spree >= 2-1-0
+Spree ~> 2.2.0
 mailchimp-api ~> 2.0.4
 
 
@@ -54,6 +54,7 @@ Inspired originally by https://github.com/softa/mailee_spree
 Migrated to Spree 2-1 by Doug Bradbury
 Migrated to Mailchimp api gem by Doug Bradbury and Kelly Steensma
 Upgraded Simple Modal to 1.4.4 to support jquery 1.9
+Migrated to Spree 2.2 by Alessandro Lepore
 
 Includes SimpleModal http://www.ericmmartin.com/projects/simplemodal/
 
