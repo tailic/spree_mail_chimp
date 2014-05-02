@@ -1,0 +1,21 @@
+it:
+  spree:
+    do_subscribe_to_our_mailing_list: Iscriviti alla mailing list
+    enter_your_email: Inserisci la tua Email
+    subscribe: Iscriviti
+    that_address_is_already_subscribed: Sei già iscritto alla nostra mailing list.
+    something_went_wrong: Qualcosa è andato storto durante l'iscrizione. Prova di nuovo.
+    invalid_email_address: Inserisci il tuo indirizzo email completo, es. nome@example.com
+    you_have_been_subscribed: Sei stato iscritto alla nostra mailing list. Controlla la tua email per la conferma. Grazie!
+    missing_email: Non è stata inserita l'email.
+    mailchimp_settings: Impostazioni Mail Chimp
+    mailchimp_settings_description: API Keys e opzioni per l'integrazione MailChimp
+    mailchimp_list_id: List ID
+    mailchimp_api_key: API Key
+    mailchimp_send_welcome: Manda email di benvenuto
+    mailchimp_send_notify: Manda notifiche di iscrizione all'owner
+    mailchimp_double_opt_in: Conferma iscrizione
+    mailchimp_merge_vars: Attributes utente da mandare con l'iscrizione
+    mailchimp_merge_vars_help: Lista separata da virgole di metodi chiamabili su User, corrispondenti a "Merge Vars setup" nell'admin della lista. es. age,interests,location
+    mailchimp_keys: Keys
+    preferences: Impostazioni
