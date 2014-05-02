@@ -1,26 +1,21 @@
 <%= render :partial => 'spree/admin/shared/configuration_menu' %>
 
-<h1><%= Spree.t('mailchimp_settings') %></h1>
-
-<table>
-  <tr>
-    <th scope="row"><%= Spree.t("mailchimp_api_key") %>:</th>
-    <td><%= Spree::Config[:mailchimp_api_key] %></td>
-  </tr>
-  <tr>
-    <th scope="row"><%= Spree.t("mailchimp_list_id") %>:</th>
-    <td><%= Spree::Config[:mailchimp_list_id] %></td>
-  </tr>
-</table>
-
-<h4><%= Spree.t("mailchimp_double_opt_in") %>: <%= Spree::Config[:mailchimp_double_opt_in]? Spree.t('yes') : Spree.t('no') %></h4>
-<h4><%= Spree.t("mailchimp_send_welcome") %>: <%= Spree::Config[:mailchimp_send_welcome]? Spree.t('yes') : Spree.t('no') %></h4>
-<h4><%= Spree.t("mailchimp_send_notify") %>: <%= Spree::Config[:mailchimp_send_notify]? Spree.t('yes') : Spree.t('no') %></h4>
-<% unless Spree::Config[:mailchimp_merge_vars].blank? %>
-    <h4><%= Spree.t("mailchimp_merge_vars") %></h4>
-    <p>
-    <%= raw Spree::Config[:mailchimp_merge_vars].gsub(/,/, '<br >') %>
-    </p>
+<% content_for :page_title do %>
+  <%= Spree.t(:mailchimp_settings) %>
 <% end %>
 
-<p><%= link_to_with_icon 'edit', Spree.t("edit"), edit_admin_mail_chimp_settings_path %></p>
+<table class="index">
+  <tbody>
+    <% %i(mailchimp_api_key mailchimp_list_id mailchimp_double_opt_in
+          mailchimp_send_welcome mailchimp_send_notify mailchimp_merge_vars).each do |pref| %>
+      <tr>
+        <td><strong><%= Spree.t(pref) %>:</strong></th>
+        <td><%= Spree::Config[pref].to_s %></td>
+      </tr>
+    <% end %>
+  <tbody>
+</table>
+
+<div class="form-buttons filter-actions actions" data-hook="buttons">
+  <%= link_to button(Spree.t(:edit), 'icon-edit'), edit_admin_mail_chimp_settings_path %>
+</div>

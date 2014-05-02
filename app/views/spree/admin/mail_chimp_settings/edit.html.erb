@@ -1,55 +1,60 @@
 <%= render :partial => 'spree/admin/shared/configuration_menu' %>
 
-<h1><%= Spree.t('mailchimp_settings') %></h1>
+<% content_for :page_title do %>
+  <%= Spree.t(:mailchimp_settings) %>
+<% end %>
 
 <%= form_tag(admin_mail_chimp_settings_path, :method => :put, :id => :mail_chimp_settings_form) do %>
 
-  <div class="yui-g">
-    <div class="yui-u first">
-      <fieldset>
+  <div class="row">
+    <div class="alpha twelve columns">
+      <fieldset class="no-border-bottom">
         <legend><%= Spree.t('mailchimp_keys') %></legend>
-        <p>
+        <div class="field">
           <label><%= Spree.t('mailchimp_api_key') %></label><br />
           <%= text_field_tag('preferences[mailchimp_api_key]', Spree::Config[:mailchimp_api_key], :size => 46, :maxlength => 256, :class => 'email') %>
-        </p>
-        <p>
+        </div>
+        <div class="field">
           <label><%= Spree.t('mailchimp_list_id') %></label><br />
           <%= text_field_tag('preferences[mailchimp_list_id]', Spree::Config[:mailchimp_list_id], :maxlength => 256, :class => 'email') %>
-        </p>
+        </div>
       </fieldset>
 
-      <fieldset>
+      <fieldset class="no-border-bottom">
         <legend><%= Spree.t('preferences') %></legend>
-        <p>
+        <div class="field">
           <label>
             <input name="preferences[mailchimp_double_opt_in]" type="hidden" value="0" />
             <%= check_box_tag('preferences[mailchimp_double_opt_in]', "1", Spree::Config[:mailchimp_double_opt_in]) %>&nbsp;<%= Spree.t('mailchimp_double_opt_in') %>&nbsp;
           </label>
-        </p>
-        <p>
+        </div>
+        <div class="field">
           <label>
             <input name="preferences[mailchimp_send_welcome]" type="hidden" value="0" />
             <%= check_box_tag('preferences[mailchimp_send_welcome]', "1", Spree::Config[:mailchimp_send_welcome]) %>&nbsp;<%= Spree.t('mailchimp_send_welcome') %>&nbsp;
           </label>
-        </p>
-        <p>
+        </div>
+        <div class="field">
           <label>
             <input name="preferences[mailchimp_send_notify]" type="hidden" value="0" />
             <%= check_box_tag('preferences[mailchimp_send_notify]', "1", Spree::Config[:mailchimp_send_notify]) %>&nbsp;<%= Spree.t('mailchimp_send_notify') %>&nbsp;
           </label>
-        </p>
-        <p>
+        </div>
+        <div class="field">
           <label>
             &nbsp;<%= Spree.t('mailchimp_merge_vars') %>&nbsp;<br /><%= text_field_tag('preferences[mailchimp_merge_vars]', Spree::Config[:mailchimp_merge_vars], :size => 44) %>
           </label>
           <br />
           <span class="note"><%= Spree.t('mailchimp_merge_vars_help') %></span>
-        </p>
+        </div>
       </fieldset>
-
     </div>
   </div>
 
-  <p class="form-buttons"><%= button Spree.t('save_preferences') %></p>
+  <fieldset class="no-border-top">
+    <div class="form-buttons filter-actions actions" data-hook="buttons">
+      <%= button Spree.t('actions.update'), 'icon-refresh' %>
+    </div>
+  </fieldset>
 
 <% end -%>
