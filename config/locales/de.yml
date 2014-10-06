@@ -1,0 +1,22 @@
+---
+de:
+  spree:
+    do_subscribe_to_our_mailing_list: Subscribe to our mailing list?
+    enter_your_email: Ihre E-Mail-Adresse
+    subscribe: Anmelden
+    that_address_is_already_subscribed: Ihre E-Mail-Adresse ist schon für unseren Newsletter angemeldet.
+    something_went_wrong: Wir haben versucht Sie in den Verteiler auszunehmen, leider gab es wohl technische Probleme. Bitte versucehn Sie es nochmal.
+    invalid_email_address: Please enter your full email address, e.g. some.one@example.com
+    you_have_been_subscribed: Vielen Dank für Ihr Interesse! Wir haben Ihnen eine E-Mail mit Link zur Bestätigung gesendet.
+    missing_email: Wir benötigen eine E-Mail-Adresse.
+    mailchimp_settings: MailChimp Einstellungen
+    mailchimp_settings_description: API-Key und Optionen für die MailChimp-integration
+    mailchimp_list_id: Listen-ID
+    mailchimp_api_key: API-Key
+    mailchimp_send_welcome: Sende Wilkommen E-Mail
+    mailchimp_send_notify: Sende dem Admin eine E-Mail bei jeder Anmeldung
+    mailchimp_double_opt_in: Double opt-in
+    mailchimp_merge_vars: Nutzerdaten die mit der Anmeldung übertragen werden
+    mailchimp_merge_vars_help: "Kommaseparierte Liste aufrufbarer Methoden, koresspondierend zu den Merge Vars im Listen Admin z.B.: age, interests, location"
+    mailchimp_keys: Keys
+    #preferences: Einstellungen
