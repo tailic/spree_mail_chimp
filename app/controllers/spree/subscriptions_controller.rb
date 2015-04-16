@@ -36,8 +36,12 @@ class Spree::SubscriptionsController < Spree::BaseController
     end
 
     flash[:error] = Spree.t(@errors) if @errors.present?
-    flash[:success] = 'Sie haben einen Link zur Bestätigung Ihrer Anmeldung per E-Mail erhalten.' if @errors.empty?
-    redirect_to :back
 
+    if @errors.empty?
+      flash[:success] = 'Sie haben einen Link zur Bestätigung Ihrer Anmeldung per E-Mail erhalten.'
+      flash[:newsletter_subscribed] = 'nothing special'
+    end
+    redirect_to :back
   end
+
 end
