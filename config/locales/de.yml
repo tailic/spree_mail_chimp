@@ -1,7 +1,7 @@
 ---
 de:
   spree:
-    do_subscribe_to_our_mailing_list: Subscribe to our mailing list?
+    do_subscribe_to_our_mailing_list: Ich möchte Informationen und Angebote per E-Mail erhalten.
     enter_your_email: Ihre E-Mail-Adresse
     subscribe: Anmelden
     that_address_is_already_subscribed: Ihre E-Mail-Adresse ist schon für unseren Newsletter angemeldet.
